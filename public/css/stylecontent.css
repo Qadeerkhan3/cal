@@ -1,0 +1,92 @@
+@import "https://unpkg.com/open-props" layer(design.system);
+@import "https://unpkg.com/open-props/normalize.light.min.css" layer(demo.support);
+
+@keyframes slide-fade-in {
+  from {
+    opacity: 0;
+    box-shadow: none;
+    transform: scale(.8) translateY(15vh);
+  }
+}
+
+@layer demo {
+  .card {
+    @media (prefers-reduced-motion: no-preference) {
+      view-timeline-name: --item-timeline;
+      animation: slide-fade-in both;
+      animation-timeline: --item-timeline;
+      animation-range: contain 0% contain 50%;
+    }
+  }
+}
+
+@layer demo.support {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+  }
+
+  html {
+    block-size: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), /* Dark overlay */url('https://cdn.pixabay.com/photo/2021/07/18/04/00/lotus-6474572_1280.jpg') no-repeat center center fixed;
+    background-size: cover;
+  }
+
+  body {
+    min-block-size: 100%;
+    font-family: system-ui, sans-serif;
+
+    display: grid;
+    place-content: center;
+    padding-block: 30dvh;
+  }
+  
+  .cards {
+    display: grid;
+    gap: var(--size-1);
+    grid-auto-flow: dense;
+    grid-template-columns: repeat(3, var(--size-content-1));
+    
+    & > .card {
+      background: linear-gradient(#fff, #fff), var(--gradient-10);
+      background-origin: border-box;
+      background-clip: content-box, border-box;
+      border-radius: var(--radius-3);
+      box-shadow: var(--shadow-3);
+      line-height: 3;
+      padding-top: var(--size-1);
+      font-size: var(--font-size-4);
+      font-weight: var(--font-weight-6);
+      font-family: var(--font-mono);
+      display: grid;
+      place-content: center;
+      
+      &:nth-of-type(4n) {
+        grid-row: span 2;
+        background-image: linear-gradient(#fff, #fff), var(--gradient-3);
+      }
+      
+      &:nth-of-type(7n) {
+        grid-row: span 3;
+        background-image: linear-gradient(#fff, #fff), var(--gradient-5);
+      }
+      
+      &:nth-of-type(5n) {
+        grid-column: span 2;
+        background-image: linear-gradient(#fff, #fff), var(--gradient-18);
+      }
+    }
+
+    @media (max-width: 545px) {
+      grid-template-columns: repeat(2, var(--size-content-1));
+    }
+  }
+}
+
+.card:hover {
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  border-radius: var(--radius-3);
+  transform: scale(1.1);
+  opacity: 0.9;
+}
